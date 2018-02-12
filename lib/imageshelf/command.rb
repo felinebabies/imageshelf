@@ -31,5 +31,10 @@ module Imageshelf
 
     end
 
+    desc "version", "imageshelfのバージョン番号を表示します"
+    def version
+      puts "imageshelf ver:#{Imageshelf::VERSION}"
+    end
+
   end
 end
