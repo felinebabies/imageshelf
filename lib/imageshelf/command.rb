@@ -59,7 +59,7 @@ module Imageshelf
         {filepath: item, hash: Digest::MD5.file(item)}
       end
 
-      # puts hashmap
+      puts hashmap.length
 
       # データベースに登録済みのファイルと比較し、更新分を登録する
       insertsql = <<-SQL
@@ -71,14 +71,12 @@ module Imageshelf
       SQL
 
       db = SQLite3::Database.new File.join(LocalSettings::get_root_dir, LOCAL_DATA_DIR_NAME, LocalSettings::SQLITE3DBFILE)
-      db.transaction
-      begin
+      db.transaction do
         hashmap.each do |item|
           db.execute(insertsql, item[:hash].to_s, File::expand_path(item[:filepath]))
         end
-      rescue
-        db.rollback
       end
+      db.close
 
       puts "画像データの更新を実施しました。"
     end
