@@ -4,6 +4,12 @@ module Imageshelf
 
     HOST_OS = RbConfig::CONFIG["host_os"]
 
+    # 対応画像拡張子
+    IMAGE_EXTS = ["jpg", "jpeg", "png", "gif"]
+
+    # sqlite3 DBファイル名
+    SQLITE3DBFILE = 'shelfdata.db'
+
     def already_init?
       !!get_root_dir
     end
