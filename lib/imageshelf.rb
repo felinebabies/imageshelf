@@ -1,5 +1,8 @@
 require "imageshelf/version"
+require "imageshelf/localsettings.rb"
+require "imageshelf/command.rb"
 
 module Imageshelf
-  # Your code goes here...
+  LOCAL_DATA_DIR_NAME = ".imageshelf"
+
 end
