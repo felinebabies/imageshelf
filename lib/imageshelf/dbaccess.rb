@@ -26,6 +26,11 @@ SQL
           (?);
       SQL
 
+      # データベースファイルのパスを返す
+      def getdbfilepath
+        File.join(LocalSettings::get_root_dir, LOCAL_DATA_DIR_NAME, LocalSettings::SQLITE3DBFILE)
+      end
+
       # データベースの初期化を行う
       def dbinit(dbfilepath)
         db = SQLite3::Database.new(dbfilepath)
@@ -55,14 +60,32 @@ SQL
           values
             (?, ?);
         SQL
-        
-        db = SQLite3::Database.new File.join(LocalSettings::get_root_dir, LOCAL_DATA_DIR_NAME, LocalSettings::SQLITE3DBFILE)
+
+        db = SQLite3::Database.new(getdbfilepath)
         db.transaction do
           hashmap.each do |item|
             db.execute(insertsql, item[:hash].to_s, File::expand_path(item[:filepath]))
           end
         end
         db.close
+      end
+
+      # 登録済画像の一覧を取得する
+      def getimagelist
+        selectsql = <<-SQL
+          SELECT
+            *
+          FROM
+            images;
+        SQL
+        
+        db = SQLite3::Database.new(getdbfilepath)
+        db.results_as_hash = true
+        imagelistarr = db.execute(selectsql)
+        
+        db.close
+
+        imagelistarr
       end
 
     end

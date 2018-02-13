@@ -32,7 +32,7 @@ module Imageshelf
     def update
       # 初期化されていなければ、メッセージを表示して終了
       unless LocalSettings::already_init? then
-        puts "このディレクトリはImageshelfのために初期化されていません。"
+        puts LocalSettings::MESSAGE_NOT_INITIALIZED
         exit
       end
 
@@ -52,6 +52,17 @@ module Imageshelf
       Dbaccess::updateimages(hashmap)
 
       puts "画像データの更新を実施しました。"
+    end
+
+    desc "list", "登録されている画像の一覧を出力します"
+    def list
+      # 初期化されていなければ、メッセージを表示して終了
+      unless LocalSettings::already_init? then
+        puts LocalSettings::MESSAGE_NOT_INITIALIZED
+        exit
+      end
+      
+      puts Dbaccess::getimagelist
     end
 
     desc "version", "imageshelfのバージョン番号を表示します"

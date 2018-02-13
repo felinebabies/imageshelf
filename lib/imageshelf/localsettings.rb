@@ -10,6 +10,8 @@ module Imageshelf
     # sqlite3 DBファイル名
     SQLITE3DBFILE = 'shelfdata.db'
 
+    MESSAGE_NOT_INITIALIZED = "このディレクトリはImageshelfのために初期化されていません。"
+
     def already_init?
       !!get_root_dir
     end
