@@ -46,5 +46,24 @@ SQL
         db.close
       end
 
+      # 画像情報の登録、更新を行う
+      def updateimages(hashmap)
+        insertsql = <<-SQL
+          INSERT OR REPLACE INTO
+            images
+          (hash, fullpath)
+          values
+            (?, ?);
+        SQL
+        
+        db = SQLite3::Database.new File.join(LocalSettings::get_root_dir, LOCAL_DATA_DIR_NAME, LocalSettings::SQLITE3DBFILE)
+        db.transaction do
+          hashmap.each do |item|
+            db.execute(insertsql, item[:hash].to_s, File::expand_path(item[:filepath]))
+          end
+        end
+        db.close
+      end
+
     end
 end

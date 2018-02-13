@@ -49,21 +49,7 @@ module Imageshelf
       puts hashmap.length
 
       # データベースに登録済みのファイルと比較し、更新分を登録する
-      insertsql = <<-SQL
-        INSERT OR REPLACE INTO
-          images
-        (hash, fullpath)
-        values
-          (?, ?);
-      SQL
-
-      db = SQLite3::Database.new File.join(LocalSettings::get_root_dir, LOCAL_DATA_DIR_NAME, LocalSettings::SQLITE3DBFILE)
-      db.transaction do
-        hashmap.each do |item|
-          db.execute(insertsql, item[:hash].to_s, File::expand_path(item[:filepath]))
-        end
-      end
-      db.close
+      Dbaccess::updateimages(hashmap)
 
       puts "画像データの更新を実施しました。"
     end
