@@ -22,21 +22,8 @@ module Imageshelf
       datadir = File.join(Dir.pwd, LOCAL_DATA_DIR_NAME)
 
       # 初期化用DBファイルを作成する
-      db = SQLite3::Database.new File.join(datadir, LocalSettings::SQLITE3DBFILE)
-
-      # DBにテーブルを作成する
-      sql = <<-SQL
-        create table images (
-          id integer primary key,
-          hash text,
-          fullpath text,
-          unique(hash, fullpath)
-        );
-      SQL
-
-      db.execute(sql)
-
-      # DBに初期設定を描き込む
+      dbfilepath = File.join(datadir, LocalSettings::SQLITE3DBFILE)
+      Dbaccess::dbinit(dbfilepath)
 
       puts "imageshelfの初期化を完了しました。"
     end
@@ -76,6 +63,7 @@ module Imageshelf
         hashmap.each do |item|
           db.execute(insertsql, item[:hash].to_s, File::expand_path(item[:filepath]))
         end
+        db.commit
       rescue
         db.rollback
       end
