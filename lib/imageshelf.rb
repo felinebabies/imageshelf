@@ -1,5 +1,6 @@
 require "imageshelf/version"
 require "imageshelf/localsettings.rb"
+require 'imageshelf/dbaccess'
 require "imageshelf/command.rb"
 
 module Imageshelf
