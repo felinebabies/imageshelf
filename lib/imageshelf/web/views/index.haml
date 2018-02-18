@@ -1,0 +1,14 @@
+!!!
+%html{lang: "ja"}
+  %head
+    %meta{charset: "utf-8"}
+    %title
+      Image shelf
+  %body
+    %h1
+      Image shelf
+    - @imagelistarr.each do |item|
+      %p
+        %img{src: "/image/" + item["hash"]}
+        %br
+        = item["hash"]

@@ -65,6 +65,17 @@ module Imageshelf
       puts Dbaccess::getimagelist
     end
 
+    desc 'web', 'アプリケーションサーバモードを立ち上げます'
+    def web
+      # 初期化されていなければ、メッセージを表示して終了
+      unless LocalSettings::already_init? then
+        puts LocalSettings::MESSAGE_NOT_INITIALIZED
+        exit
+      end
+      
+      AppServer.run! :host => 'localhost', :port => 9090
+    end
+
     desc "version", "imageshelfのバージョン番号を表示します"
     def version
       puts "imageshelf ver:#{Imageshelf::VERSION}"

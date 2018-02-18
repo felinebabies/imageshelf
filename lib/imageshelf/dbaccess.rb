@@ -88,5 +88,24 @@ SQL
         imagelistarr
       end
 
+      # ハッシュに対応する画像パスの一覧を取得する
+      def getimagepathbyhash(hash)
+        selectsql = <<-SQL
+          SELECT
+            *
+          FROM
+            images
+          WHERE
+            hash = ?
+        SQL
+        
+        db = SQLite3::Database.new(getdbfilepath)
+        db.results_as_hash = true
+        imagepathlistarr = db.execute(selectsql, hash)
+        
+        db.close
+
+        imagepathlistarr
+      end
     end
 end
