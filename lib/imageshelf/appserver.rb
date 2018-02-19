@@ -15,10 +15,18 @@ module Imageshelf
             haml :index
         end
 
-        # 画像のハッシュを元に、画像の存在するパスを返す
+        # 画像のハッシュを元に、画像を返す
         get '/image/:hash' do |hash|
             filepatharray = Dbaccess::getimagepathbyhash(hash)
-            send_file(filepatharray.first["fullpath"])
+            filepatharray.select! do |item|
+                File.exist?(item["fullpath"])
+            end
+            if filepatharray.empty? then
+                lib_root = File.dirname(__FILE__)
+                return send_file(File.join(lib_root + '/web/image/no_image.png'))
+            else
+                return send_file(filepatharray.first["fullpath"])
+            end
         end
     end
 end
