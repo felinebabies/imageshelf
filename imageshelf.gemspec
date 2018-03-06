@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sqlite3"
   spec.add_dependency "sinatra"
   spec.add_dependency "haml"
+  spec.add_dependency "rmagick"
 end
