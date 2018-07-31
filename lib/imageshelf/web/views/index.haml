@@ -11,6 +11,7 @@
     #ThumbnailContainer
       - @imagelistarr.each do |item|
         %p.imgthumbnail
-          %img{src: "/thumb/" + item["hash"]}
+          %a{href: "/detail/" + item["hash"]}
+            %img{src: "/thumb/" + item["hash"]}
           %br
           = item["hash"]

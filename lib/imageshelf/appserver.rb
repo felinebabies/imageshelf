@@ -16,6 +16,15 @@ module Imageshelf
             haml :index
         end
 
+        # 画像の詳細画面表示
+        get '/detail/:hash' do |hash|
+            @imagedetail = {
+                hash: hash
+            }
+
+            haml :detail
+        end
+
         # 画像のハッシュを元に、画像を返す
         get '/image/:hash' do |hash|
             filepatharray = Dbaccess::getimagepathbyhash(hash)

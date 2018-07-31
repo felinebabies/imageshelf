@@ -1,0 +1,14 @@
+!!!
+%html{lang: "ja"}
+  %head
+    %meta{charset: "utf-8"}
+    %title
+      detail : Image shelf
+    %link{rel: "stylesheet", href: "/css/base.css"}
+  %body
+    %h1
+      detail : Image shelf
+    #DetailContainer
+      %img{src: "/image/" + @imagedetail[:hash]}
+      %br
+      = @imagedetail[:hash]
