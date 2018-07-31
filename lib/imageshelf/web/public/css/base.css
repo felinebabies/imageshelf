@@ -1,0 +1,10 @@
+p.imgthumbnail {
+    border: solid 1px #AAA;
+    text-align: center;
+}
+
+#ThumbnailContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}

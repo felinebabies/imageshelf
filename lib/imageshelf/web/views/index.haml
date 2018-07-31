@@ -4,11 +4,13 @@
     %meta{charset: "utf-8"}
     %title
       Image shelf
+    %link{rel: "stylesheet", href: "/css/base.css"}
   %body
     %h1
       Image shelf
-    - @imagelistarr.each do |item|
-      %p
-        %img{src: "/thumb/" + item["hash"]}
-        %br
-        = item["hash"]
+    #ThumbnailContainer
+      - @imagelistarr.each do |item|
+        %p.imgthumbnail
+          %img{src: "/thumb/" + item["hash"]}
+          %br
+          = item["hash"]

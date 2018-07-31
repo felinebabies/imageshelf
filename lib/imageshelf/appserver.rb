@@ -7,6 +7,7 @@ module Imageshelf
         configure do
             lib_root = File.dirname(__FILE__)
             set :views, File.join(lib_root + '/web/views')
+            set :public_folder, File.join(lib_root + '/web/public')
         end
 
         get '/' do
