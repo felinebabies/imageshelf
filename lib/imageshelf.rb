@@ -8,5 +8,6 @@ require "imageshelf/command"
 module Imageshelf
   LOCAL_DATA_DIR_NAME = ".imageshelf"
   THUMB_DIR_NAME = "thumbnails"
+  PAGENATE_ITEM_PER = 36
 
 end

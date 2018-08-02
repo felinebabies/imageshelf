@@ -34,9 +34,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "pry"
+  spec.add_development_dependency "pry-byebug"
   spec.add_dependency "thor"
   spec.add_dependency "sqlite3"
   spec.add_dependency "sinatra"
   spec.add_dependency "haml"
   spec.add_dependency "rmagick"
+  spec.add_dependency "kaminari"
+  spec.add_dependency "kaminari-sinatra"
+  spec.add_dependency "padrino-helpers"
 end

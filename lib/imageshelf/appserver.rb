@@ -1,6 +1,9 @@
 require 'imageshelf'
 require 'sinatra/base'
 require 'haml'
+require 'padrino-helpers'
+require 'kaminari/sinatra'
+require 'active_support/core_ext/hash'
 
 module Imageshelf
     class AppServer < Sinatra::Base
@@ -10,8 +13,10 @@ module Imageshelf
             set :public_folder, File.join(lib_root + '/web/public')
         end
 
+        helpers Kaminari::Helpers::SinatraHelpers
+
         get '/' do
-            @imagelistarr = Dbaccess::getimagelist
+            @imagelistarr = Kaminari.paginate_array(Dbaccess::getimagelist).page(params[:page]).per(PAGENATE_ITEM_PER)
 
             haml :index
         end
