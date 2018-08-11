@@ -29,6 +29,7 @@ module Imageshelf
     end
 
     desc "update", "初期化済ディレクトリ以下の画像をスキャンして、データベースを更新します"
+    option :remove, :type => :boolean, :aliases => '-r', :banner => "通常のupdate後、登録済みの画像情報から実ファイルが存在しないものを削除する"
     def update
       # 初期化されていなければ、メッセージを表示して終了
       unless LocalSettings::already_init? then
@@ -52,6 +53,11 @@ module Imageshelf
       Dbaccess::updateimages(hashmap)
 
       puts "画像データの更新を実施しました。"
+
+      if options[:remove] then
+        # 実ファイルが存在しない画像情報を削除する
+        puts "実ファイルが存在しない画像情報を削除する"
+      end
     end
 
     desc "list", "登録されている画像の一覧を出力します"
